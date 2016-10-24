@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 	{
 		var cam = GameObject.Find("Main Camera");
 		//cam.GetComponent(SmoothFollow).target = transform;
-		cam.GetComponent<CameraController>().player = gameObject;// newCharacter.transform;
+		cam.GetComponent<CameraController>().player = gameObject;
 
 		startTime = DateTime.Now;
 		count = 0;
@@ -92,6 +92,7 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	//TODO check if needed
 	void onCollisionEnter (Collider other)
 	{
 		OnTriggerEnter (other);

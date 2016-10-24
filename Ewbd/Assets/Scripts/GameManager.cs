@@ -21,8 +21,7 @@ public class GameManager : MonoBehaviour
 
 	// Use this for initialization
 	void Start ()
-	{		
-	//	playerController = Player.GetComponent<PlayerController> ();
+	{
 		StartCoroutine (GameLoop ());
 	}
 
