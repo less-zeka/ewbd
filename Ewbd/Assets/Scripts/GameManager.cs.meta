@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 57f0056ec4b794b3593155c286f5c228
+timeCreated: 1477231704
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - Player: {instanceID: 0}
+  - Filler: {fileID: 100000, guid: 5a0ed8dbb343e428aa7bce74588c593e, type: 2}
+  - Diamond: {fileID: 100000, guid: 971d87c39daa44ab2ba19aca998d7c73, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
