@@ -26,3 +26,11 @@ public static class LevelConfiguration {
 		}
 	}
 }
+
+public class Level
+{
+	public int LevelNr;
+	public string bar;
+	public List<Vector3> DiamondPositions;
+	public List<Vector3> RockPositions;
+}

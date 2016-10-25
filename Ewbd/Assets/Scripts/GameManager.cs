@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using System.Net;
+using System.IO;
+using System.Text.RegularExpressions;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,12 +19,38 @@ public class GameManager : MonoBehaviour
 
 	private int nrOfDiamondsFound = 0;
 	private int nrOfDiamonds = 3;
+	private Level level;
 
-	private int CurrentLevel = 2;
+	public int CurrentLevel;
+
+	private static GameManager instance = null;
+
+//	public static GameManager Instance { get { return _instance; } }
+
+	void Awake ()
+	{
+//		if (_instance != null && _instance != this) {
+//			Destroy (this.gameObject);
+//		} else {
+//			_instance = this;
+			CurrentLevel = 1;
+//			DontDestroyOnLoad (this.gameObject);
+//		}
+		if(instance == null){
+			instance = this;
+			DontDestroyOnLoad(this.gameObject);
+		}else if(instance != this){
+			Destroy(this.gameObject);
+			return;
+		}
+
+		//DontDestroyOnLoad(transform.root.gameObject);
+	}
 
 	// Use this for initialization
 	void Start ()
 	{
+		level = GetLevelConfiguration ();
 		StartCoroutine (GameLoop ());
 	}
 
@@ -46,7 +75,7 @@ public class GameManager : MonoBehaviour
 
 	private void SetUpDiamonds ()
 	{
-		foreach (var position in LevelConfiguration.DiamondPositions) {
+		foreach (var position in level.DiamondPositions) {
 			var rotation = Quaternion.Euler (new Vector3 (45, 45f, 45f));
 			var gameObject = Instantiate (Diamond, position, rotation);
 			gameObject.transform.parent = GameObject.Find ("Diamonds").transform;
@@ -59,9 +88,9 @@ public class GameManager : MonoBehaviour
 		gameObject.transform.parent = GameObject.Find ("Player").transform;
 	}
 
-	private void SetUpRocks()
+	private void SetUpRocks ()
 	{
-		foreach (var position in LevelConfiguration.RockPositions) {
+		foreach (var position in level.RockPositions) {
 			var gameObject = Instantiate (Rock, position, Quaternion.identity);
 			gameObject.transform.parent = GameObject.Find ("Rocks").transform;
 
@@ -75,9 +104,24 @@ public class GameManager : MonoBehaviour
 			//Loads a level
 			SceneManager.LoadScene ("Level" + CurrentLevel);
 		}
-		GUI.Label(new Rect(10, 10, 100, 20), string.Format(@"Gems: {0}\{1}", nrOfDiamondsFound, nrOfDiamonds));
+		GUI.Label (new Rect (10, 10, 100, 20), string.Format (@"Gems: {0}\{1}", nrOfDiamondsFound, nrOfDiamonds));
 	}
-		
+
+	private Level GetLevelConfiguration ()
+	{
+		var url = "http://ewbdwebapi.azurewebsites.net/api/level?levelNr=" + CurrentLevel;
+		HttpWebRequest req = WebRequest.Create (url)
+			as HttpWebRequest;
+		string result = null;
+		using (HttpWebResponse resp = req.GetResponse ()
+			as HttpWebResponse) {
+			StreamReader reader = new StreamReader (resp.GetResponseStream ());
+			result = reader.ReadToEnd ();
+		}
+		var level = JsonUtility.FromJson<Level> (result);
+		return level;
+	}
+
 	private IEnumerator GameLoop ()
 	{
 		// Start off by running the 'RoundStarting' coroutine but don't return until it's finished.
@@ -91,7 +135,7 @@ public class GameManager : MonoBehaviour
 
 		// This code is not run until 'RoundEnding' has finished.  At which point, check if a game winner has been found.
 		if (LevelDone || LevelFailed) {
-			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 		}
 		// If there isn't a winner yet, restart this coroutine so the loop continues.
 		// Note that this coroutine doesn't yield.  This means that the current version of the GameLoop will end.
@@ -116,7 +160,7 @@ public class GameManager : MonoBehaviour
 		var delay = 3.0f;
 		yield return new WaitForSeconds (delay);
 	}
-		
+
 	private IEnumerator RoundPlaying ()
 	{
 		// Clear the text from the screen.
@@ -144,6 +188,9 @@ public class GameManager : MonoBehaviour
 		//if (m_RoundWinner != null)
 		//	m_RoundWinner.m_Wins++;
 
+		if (LevelDone) {
+			CurrentLevel++;
+		}
 		// Now the winner's score has been incremented, see if someone has one the game.
 //		m_GameWinner = GetGameWinner ();
 
@@ -171,7 +218,8 @@ public class GameManager : MonoBehaviour
 		return nrOfDiamondsFound < nrOfDiamonds && !LevelDone && !LevelFailed;
 	}
 
-	public void DiamondFound(){
+	public void DiamondFound ()
+	{
 		nrOfDiamondsFound++;
 	}
 }
