@@ -57,12 +57,12 @@ public class GameManager : MonoBehaviour
 	private void SetUpFillers ()
 	{
 		// rows and columns
-		var nrFillerRows = 10.0f;
+		var nrFillerRows = 15.0f;
 		var absoluteMaxX = 9.0f;
 		var absoluteMaxZ = 9.0f;
 		var deltaX = 2.0f * absoluteMaxX / (nrFillerRows - 1);
 		var deltaZ = 2.0f * absoluteMaxZ / (nrFillerRows - 1);
-		var scale = 0.9f;
+		var scale = 0.96f;
 
 		for (int x = 0; x < nrFillerRows; x++) {
 			for (int y = 0; y < nrFillerRows; y++) {
