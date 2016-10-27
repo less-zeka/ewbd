@@ -38,3 +38,11 @@ sysinfo.txt
 
 
 Ewbd/Assets/resources/Assembly-CSharp.csproj.meta
+Ewbd/ProjectSettings/*
+
+
+Ewbd/ProjectSettings/EditorBuildSettings.asset
+
+Ewbd/ProjectSettings/GraphicsSettings.asset
+
+Ewbd/ProjectSettings/ProjectSettings.asset
