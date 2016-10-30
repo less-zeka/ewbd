@@ -8,6 +8,13 @@ using System.Net;
 using System.IO;
 using System.Text.RegularExpressions;
 
+//TODO 
+//complete refacoring: 
+//	put the coroutines in the levelmanager?
+// what to test?
+// testing in unity?
+// help anyone?
+// hello?
 public class GameManager : MonoBehaviour
 {
 	public GameObject Player;
@@ -31,7 +38,6 @@ public class GameManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		level = GetLevelConfiguration ();
 		StartCoroutine (GameLoop ());
 	}
 
@@ -80,27 +86,7 @@ public class GameManager : MonoBehaviour
 
 	void OnGUI ()
 	{
-		//makes a GUI button at coordinates 10, 100, and a size of 200x40						
-		if (GUI.Button (new Rect (10, 400, 100, 50), "Restart")) {
-			//Loads a level
-			SceneManager.LoadScene ("Level" + CurrentLevel);
-		}
 		GUI.Label (new Rect (10, 10, 100, 20), string.Format (@"Gems: {0}\{1}", nrOfDiamondsFound, nrOfDiamonds));
-	}
-
-	private Level GetLevelConfiguration ()
-	{
-		var url = "http://ewbdwebapi.azurewebsites.net/api/level?levelNr=" + CurrentLevel;
-		HttpWebRequest req = WebRequest.Create (url)
-			as HttpWebRequest;
-		string result = null;
-		using (HttpWebResponse resp = req.GetResponse ()
-			as HttpWebResponse) {
-			StreamReader reader = new StreamReader (resp.GetResponseStream ());
-			result = reader.ReadToEnd ();
-		}
-		var level = JsonUtility.FromJson<Level> (result);
-		return level;
 	}
 
 	private IEnumerator GameLoop ()
@@ -115,8 +101,12 @@ public class GameManager : MonoBehaviour
 		yield return StartCoroutine (RoundEnding ());
 
 		// This code is not run until 'RoundEnding' has finished.  At which point, check if a game winner has been found.
-		if (LevelDone || LevelFailed) {
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+		if (LevelDone) {
+			SceneManager.LoadScene (Constants.Scene_LevelSelection);
+		}
+
+		else if (LevelFailed) {
+			SceneManager.LoadScene (Constants.Scene_RestartLevel);
 		}
 		// If there isn't a winner yet, restart this coroutine so the loop continues.
 		// Note that this coroutine doesn't yield.  This means that the current version of the GameLoop will end.
@@ -187,6 +177,8 @@ public class GameManager : MonoBehaviour
 
 	private void SetUpLevel ()
 	{
+		//level = GetLevelConfiguration ();
+
 		//player, diamonds, rocks, fillers
 		SetUpFillers ();
 		SetUpRocks ();

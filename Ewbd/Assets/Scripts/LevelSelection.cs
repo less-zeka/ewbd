@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelSelection : MonoBehaviour {
 
@@ -34,21 +35,12 @@ public class LevelSelection : MonoBehaviour {
 				LevelNr = 6
 			});
 	}
-	// Use this for initialization
-	void Start () {
-		Debug.Log("level: "+currentLevel);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
 	void OnGUI () {
 		foreach (var level in levels) {
 			if (GUILayout.Button ("Level "+ level.LevelNr)) {
 				currentLevel = level.LevelNr;
-				Application.LoadLevel (level.LevelNr);
+				SceneManager.LoadScene (level.LevelNr);
 			}
 		}
 	}

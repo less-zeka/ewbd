@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 public class LevelManager : MonoBehaviour
 {
 	private bool roundFinished = false;
-	public int CurrentLevel = 0;
+//	public int CurrentLevel = 0;
 
 	// Use this for initialization
 	void Start ()
