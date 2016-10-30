@@ -21,30 +21,11 @@ public class GameManager : MonoBehaviour
 	private int nrOfDiamonds = 3;
 	private Level level;
 
-	public int CurrentLevel;
-
-	private static GameManager instance = null;
-
-//	public static GameManager Instance { get { return _instance; } }
+	public int CurrentLevel = 0;
 
 	void Awake ()
 	{
-//		if (_instance != null && _instance != this) {
-//			Destroy (this.gameObject);
-//		} else {
-//			_instance = this;
-			CurrentLevel = 1;
-//			DontDestroyOnLoad (this.gameObject);
-//		}
-		if(instance == null){
-			instance = this;
-			DontDestroyOnLoad(this.gameObject);
-		}else if(instance != this){
-			Destroy(this.gameObject);
-			return;
-		}
-
-		//DontDestroyOnLoad(transform.root.gameObject);
+		DontDestroyOnLoad(transform.gameObject);
 	}
 
 	// Use this for initialization
