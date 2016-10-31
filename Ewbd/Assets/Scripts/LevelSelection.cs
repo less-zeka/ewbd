@@ -8,31 +8,33 @@ public class LevelSelection : MonoBehaviour {
 	private int currentLevel = 0;
 
 	void Awake(){
-		levels = new List<Level> ();
-		levels.Add (new Level 
-			{
-				LevelNr = 1
-			});
-		levels.Add (new Level 
-			{
-				LevelNr = 2
-			});
-		levels.Add (new Level 
-			{
-				LevelNr = 3
-			});
-		levels.Add (new Level 
-			{
-				LevelNr = 4
-			});
-		levels.Add (new Level 
-			{
-				LevelNr = 5
-			});
-		levels.Add (new Level 
-			{
-				LevelNr = 6
-			});
+	    levels = new List<Level>
+	    {
+	        new Level
+	        {
+	            LevelNr = 1
+	        },
+	        new Level
+	        {
+	            LevelNr = 2
+	        },
+	        new Level
+	        {
+	            LevelNr = 3
+	        },
+	        new Level
+	        {
+	            LevelNr = 4
+	        },
+	        new Level
+	        {
+	            LevelNr = 5
+	        },
+	        new Level
+	        {
+	            LevelNr = 6
+	        }
+	    };
 	}
 
 	void OnGUI () {

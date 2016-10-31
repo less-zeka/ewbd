@@ -2,14 +2,14 @@
 
 public class CameraController : MonoBehaviour 
 {
-	public GameObject player;
-	private Vector3 offset;
+	public GameObject Player;
+	private Vector3 _offset;
 
 	void Start () {
-		offset = transform.position;
+		_offset = transform.position;
 	}
 	
 	void LateUpdate () {
-		transform.position = player.transform.position + offset;
+		transform.position = Player.transform.position + _offset;
 	}
 }

@@ -6,21 +6,18 @@ public class PlayerController : MonoBehaviour
 	// Using same speed reference in both, desktop and other devices
 	public float speed = 1000;
 	private int count;
-	public int diamondCount;
 	private DateTime startTime;
 	private DateTime endTime;
-	public int NrOfDiamonds = 3;
-	//private GameManager gameManager;
     private LevelManager levelManager;
 
 	void Start ()
 	{
 		var cam = GameObject.Find("Main Camera");
-		cam.GetComponent<CameraController>().player = gameObject;
+		cam.GetComponent<CameraController>().Player = gameObject;
 
 		startTime = DateTime.Now;
 		count = 0;
-		diamondCount = 0;
+		//diamondCount = 0;
 
 	    if (levelManager == null)
 	    {
@@ -102,27 +99,10 @@ public class PlayerController : MonoBehaviour
 			count = count + 1;
 		} else if (other.gameObject.CompareTag ("Diamond")) {
 			other.gameObject.SetActive (false);
-			diamondCount = diamondCount + 1;
             levelManager.DiamondFound ();
-			if (diamondCount >= NrOfDiamonds) {
-				LevelDone ();
-			}
-		} else if (other.gameObject.CompareTag ("Rock")) {
-			LevelFailed ();
+		} else if (other.gameObject.CompareTag ("Rock"))
+		{
+		    levelManager.HitRock();
 		}
-	}
-
-	private void LevelDone ()
-	{
-		endTime = DateTime.Now;
-		var elapsedTime = endTime - startTime;
-        levelManager.LevelDone = true;
-	}
-
-	private void LevelFailed ()
-	{
-		endTime = DateTime.Now;
-		var elapsedTime = endTime - startTime;
-        levelManager.LevelFailed = true;
 	}
 }

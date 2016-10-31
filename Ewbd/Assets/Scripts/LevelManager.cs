@@ -4,33 +4,20 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    private int nrOfDiamondsFound = 0;
     public GameObject Player;
     public GameObject Filler;
     public GameObject Diamond;
     public GameObject Rock;
-    public bool LevelDone = false;
-    public bool LevelFailed = false;
+    public bool LevelFailed;
 
-    private Level level;
-
-    private bool roundFinished = false;
+    private int _nrOfDiamondsFound;
+    private Level _level;
 
     // Use this for initialization
     void Start()
     {
-        level = ((GameManager)GameObject.Find("GameManager").GetComponent("GameManager")).CurrentLevel;
+        _level = ((GameManager)GameObject.Find("GameManager").GetComponent("GameManager")).CurrentLevel;
         StartCoroutine(GameLoop());
-    }
-
-    void OnGUI()
-    {
-        //makes a GUI button at coordinates 10, 100, and a size of 200x40						
-        if (GUI.Button(new Rect(10, 400, 100, 50), "LevelSelection"))
-        {
-            //Loads a level
-            SceneManager.LoadScene("LevelSelection");
-        }
     }
 
     private IEnumerator GameLoop()
@@ -78,7 +65,6 @@ public class LevelManager : MonoBehaviour
     private IEnumerator RoundEnding()
     {
         var delay = 1.0f;
-        roundFinished = true;
         yield return new WaitForSeconds(delay);
     }
 
@@ -110,41 +96,51 @@ public class LevelManager : MonoBehaviour
         {
             for (int y = 0; y < nrFillerRows; y++)
             {
-                var gameObject = Instantiate(Filler,
+                var myGameObject = Instantiate(Filler,
                     new Vector3(-absoluteMaxX + x*deltaX, 0.25f, -absoluteMaxZ + y*deltaZ), Quaternion.identity);
-                gameObject.transform.parent = GameObject.Find("Fillers").transform;
-                gameObject.transform.localScale = new Vector3(scale, transform.localScale.y, scale);
+                myGameObject.transform.parent = GameObject.Find("Fillers").transform;
+                myGameObject.transform.localScale = new Vector3(scale, transform.localScale.y, scale);
             }
         }
     }
 
     private void SetUpDiamonds()
     {
-        foreach (var position in level.DiamondPositions)
+        foreach (var position in _level.DiamondPositions)
         {
             var rotation = Quaternion.Euler(new Vector3(45, 45f, 45f));
-            var gameObject = Instantiate(Diamond, position, rotation);
-            gameObject.transform.parent = GameObject.Find("Diamonds").transform;
+            var myGameObject = Instantiate(Diamond, position, rotation);
+            myGameObject.transform.parent = GameObject.Find("Diamonds").transform;
         }
     }
 
     private void SetUpPlayer()
     {
-        var gameObject = Instantiate(Player, new Vector3(-3.96f, 0.5f, 0f), Quaternion.identity);
-        gameObject.transform.parent = GameObject.Find("Player").transform;
+        var myGameObject = Instantiate(Player, new Vector3(-3.96f, 0.5f, 0f), Quaternion.identity);
+        myGameObject.transform.parent = GameObject.Find("Player").transform;
     }
 
     private void SetUpRocks()
     {
-        foreach (var position in level.RockPositions)
+        foreach (var position in _level.RockPositions)
         {
-            var gameObject = Instantiate(Rock, position, Quaternion.identity);
-            gameObject.transform.parent = GameObject.Find("Rocks").transform;
+            var myGameObject = Instantiate(Rock, position, Quaternion.identity);
+            myGameObject.transform.parent = GameObject.Find("Rocks").transform;
         }
     }
 
     public void DiamondFound()
     {
-        nrOfDiamondsFound++;
+        _nrOfDiamondsFound++;
+    }
+
+    public void HitRock()
+    {
+        LevelFailed = true;
+    }
+
+    private bool LevelDone
+    {
+        get { return _nrOfDiamondsFound >= _level.DiamondPositions.Count; }
     }
 }
