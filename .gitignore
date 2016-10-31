@@ -36,18 +36,16 @@ sysinfo.txt
 
 /Ewbd/Temp/*
 
-
 Ewbd/Assets/resources/Assembly-CSharp.csproj.meta
 Ewbd/ProjectSettings/*
-
-
 Ewbd/ProjectSettings/EditorBuildSettings.asset
-
 Ewbd/ProjectSettings/GraphicsSettings.asset
-
 Ewbd/ProjectSettings/ProjectSettings.asset
 WebApi/packages/
 WebApi/EwBD_WebApi/obj/
 WebApi/EwBD_WebApi/bin/
 Ewbd/ProjectSettings/
 WebApi/EwBD_WebApi/bin/
+WebApi/.vs/
+
+WebApi/.vs/config/applicationhost.config
