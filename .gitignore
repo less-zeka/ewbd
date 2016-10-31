@@ -46,3 +46,8 @@ Ewbd/ProjectSettings/EditorBuildSettings.asset
 Ewbd/ProjectSettings/GraphicsSettings.asset
 
 Ewbd/ProjectSettings/ProjectSettings.asset
+WebApi/packages/
+WebApi/EwBD_WebApi/obj/
+WebApi/EwBD_WebApi/bin/
+Ewbd/ProjectSettings/
+WebApi/EwBD_WebApi/bin/

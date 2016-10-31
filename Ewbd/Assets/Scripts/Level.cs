@@ -12,11 +12,11 @@ public class Level : MonoBehaviour
 	void Awake()
 	{
 		Debug.Log ("awake: " + LevelNr);
-		((GameManager)GameObject.Find ("GameManager").GetComponent ("GameManager")).CurrentLevel = LevelNr;
 		LoadLevel ();
-	}
+        ((GameManager)GameObject.Find("GameManager").GetComponent("GameManager")).CurrentLevel = this;
+    }
 
-	private void LoadLevel(){
+    private void LoadLevel(){
 		var url = "http://ewbdwebapi.azurewebsites.net/api/level?levelNr=" + LevelNr;
 		HttpWebRequest req = WebRequest.Create (url)
 			as HttpWebRequest;

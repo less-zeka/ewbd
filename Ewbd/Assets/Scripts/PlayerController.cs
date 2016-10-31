@@ -10,24 +10,25 @@ public class PlayerController : MonoBehaviour
 	private DateTime startTime;
 	private DateTime endTime;
 	public int NrOfDiamonds = 3;
-	private GameManager gameManager;
+	//private GameManager gameManager;
+    private LevelManager levelManager;
 
 	void Start ()
 	{
 		var cam = GameObject.Find("Main Camera");
-		//cam.GetComponent(SmoothFollow).target = transform;
 		cam.GetComponent<CameraController>().player = gameObject;
 
 		startTime = DateTime.Now;
 		count = 0;
 		diamondCount = 0;
 
-		if (gameManager == null) {
-			gameManager = GameObject.Find ("GameManager").GetComponent<GameManager> ();
-		}
+	    if (levelManager == null)
+	    {
+	        levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
+	    }
 	}
 
-	void Main ()
+    void Main ()
 	{
 		// Preventing mobile devices going in to sleep mode 
 		//(actual problem if only accelerometer input is used)
@@ -102,7 +103,7 @@ public class PlayerController : MonoBehaviour
 		} else if (other.gameObject.CompareTag ("Diamond")) {
 			other.gameObject.SetActive (false);
 			diamondCount = diamondCount + 1;
-			gameManager.DiamondFound ();
+            levelManager.DiamondFound ();
 			if (diamondCount >= NrOfDiamonds) {
 				LevelDone ();
 			}
@@ -115,13 +116,13 @@ public class PlayerController : MonoBehaviour
 	{
 		endTime = DateTime.Now;
 		var elapsedTime = endTime - startTime;
-		gameManager.LevelDone = true;
+        levelManager.LevelDone = true;
 	}
 
 	private void LevelFailed ()
 	{
 		endTime = DateTime.Now;
 		var elapsedTime = endTime - startTime;
-		gameManager.LevelFailed = true;
+        levelManager.LevelFailed = true;
 	}
 }

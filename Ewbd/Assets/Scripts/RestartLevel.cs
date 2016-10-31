@@ -6,8 +6,8 @@ public class RestartLevel : MonoBehaviour
 	void OnGUI ()
 	{
 		if (GUILayout.Button ("Restart")) {
-			var levelSelected = ((GameManager)GameObject.Find ("GameManager").GetComponent ("GameManager")).CurrentLevel;
-			SceneManager.LoadScene (levelSelected);
+			var level = ((GameManager)GameObject.Find ("GameManager").GetComponent ("GameManager")).CurrentLevel;
+			SceneManager.LoadScene (level.LevelNr);
 		}
 
 		if (GUILayout.Button ("Select Scene")) {
