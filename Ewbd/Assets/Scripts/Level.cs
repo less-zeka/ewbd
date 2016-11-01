@@ -11,7 +11,6 @@ public class Level : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("awake: " + LevelNr);
         LoadLevel();
         ((GameManager) GameObject.Find("GameManager").GetComponent("GameManager")).CurrentLevel = this;
     }

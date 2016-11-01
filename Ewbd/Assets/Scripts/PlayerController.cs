@@ -3,8 +3,9 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
-	// Using same speed reference in both, desktop and other devices
-	public float speed = 1000;
+    // Using same speed reference in both, desktop and other devices
+    public AudioClip shootSound;
+    public float speed = 1000;
     public GameObject Explosion;
 	private int count;
 	private DateTime startTime;
@@ -78,7 +79,8 @@ public class PlayerController : MonoBehaviour
 			Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
 			// Adding force to rigidbody
 			GetComponent<Rigidbody> ().AddForce (movement * speed * Time.deltaTime);
-		} else {
+            //Physics.gravity = movement;
+        } else {
 			// Player movement in mobile devices
 			// Building of force vector 
 			Vector3 movement = new Vector3 (Input.acceleration.x, 0.0f, Input.acceleration.y);
@@ -103,6 +105,10 @@ public class PlayerController : MonoBehaviour
             levelManager.DiamondFound ();
 		} else if (other.gameObject.CompareTag ("Rock"))
 		{
+            foreach(var audioSource in other.GetComponents<AudioSource>())
+		    {
+                audioSource.Play();
+            }
 		    HitRock();
 		}
 	}

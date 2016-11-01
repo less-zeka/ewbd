@@ -75,8 +75,6 @@ public class LevelManager : MonoBehaviour
 
     private void SetUpLevel()
     {
-        //level = GetLevelConfiguration ();
-
         //order is important! Fillers will be only created if nothing is there
         SetUpDiamonds();
         SetUpRocks();
