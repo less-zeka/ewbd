@@ -76,9 +76,11 @@ public class LevelManager : MonoBehaviour
     private void SetUpLevel()
     {
         //level = GetLevelConfiguration ();
-        SetUpFillers();
-        SetUpRocks();
+
+        //order is important! Fillers will be only created if nothing is there
         SetUpDiamonds();
+        SetUpRocks();
+        SetUpFillers();
         SetUpPlayer();
     }
 
@@ -96,10 +98,15 @@ public class LevelManager : MonoBehaviour
         {
             for (int y = 0; y < nrFillerRows; y++)
             {
-                var myGameObject = Instantiate(Filler,
-                    new Vector3(-absoluteMaxX + x*deltaX, 0.25f, -absoluteMaxZ + y*deltaZ), Quaternion.identity);
-                myGameObject.transform.parent = GameObject.Find("Fillers").transform;
-                myGameObject.transform.localScale = new Vector3(scale, transform.localScale.y, scale);
+                var position = new Vector3(-absoluteMaxX + x*deltaX, 0.25f, -absoluteMaxZ + y*deltaZ);
+                //put a filler if nothing at position
+                if (!Physics.CheckBox(position, new Vector3(0.24f, 0.24f, 0.24f)))
+               {
+                    var myGameObject = Instantiate(Filler, position, Quaternion.identity);
+                    myGameObject.transform.parent = GameObject.Find("Fillers").transform;
+                    myGameObject.transform.localScale = new Vector3(scale, transform.localScale.y, scale);
+                }
+                
             }
         }
     }
