@@ -105,16 +105,16 @@ public class PlayerController : MonoBehaviour
             levelManager.DiamondFound ();
 		} else if (other.gameObject.CompareTag ("Rock"))
 		{
-            foreach(var audioSource in other.GetComponents<AudioSource>())
-		    {
-                audioSource.Play();
-            }
-		    HitRock();
+		    HitRock(other);
 		}
 	}
 
-    private void HitRock()
+    private void HitRock(Collider other)
     {
+        foreach (var audioSource in other.GetComponents<AudioSource>())
+        {
+            audioSource.Play();
+        }
         levelManager.HitRock();
         Instantiate(Explosion, transform.position, Quaternion.identity);
         Destroy(gameObject);
