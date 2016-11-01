@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 {
 	// Using same speed reference in both, desktop and other devices
 	public float speed = 1000;
+    public GameObject Explosion;
 	private int count;
 	private DateTime startTime;
 	private DateTime endTime;
@@ -102,7 +103,14 @@ public class PlayerController : MonoBehaviour
             levelManager.DiamondFound ();
 		} else if (other.gameObject.CompareTag ("Rock"))
 		{
-		    levelManager.HitRock();
+		    HitRock();
 		}
 	}
+
+    private void HitRock()
+    {
+        levelManager.HitRock();
+        Instantiate(Explosion, transform.position, Quaternion.identity);
+        Destroy(gameObject);
+    }
 }

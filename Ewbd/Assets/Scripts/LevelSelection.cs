@@ -38,11 +38,14 @@ public class LevelSelection : MonoBehaviour {
 	}
 
 	void OnGUI () {
-		foreach (var level in levels) {
+        GUILayout.BeginArea(new Rect((Screen.width / 2) - 100, (Screen.height / 2) - 100, 200, 200));
+
+        foreach (var level in levels) {
 			if (GUILayout.Button ("Level "+ level.LevelNr)) {
 				currentLevel = level.LevelNr;
 				SceneManager.LoadScene (level.LevelNr);
 			}
 		}
-	}
+        GUILayout.EndArea();
+    }
 }

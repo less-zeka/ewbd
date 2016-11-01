@@ -64,7 +64,7 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator RoundEnding()
     {
-        var delay = 1.0f;
+        var delay = 5.0f;
         yield return new WaitForSeconds(delay);
     }
 
