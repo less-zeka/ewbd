@@ -50,26 +50,26 @@ public class PlayerController : MonoBehaviour
 	void FixedUpdate ()
 	{
 		//TODO!
-		if (transform.position.x > 9) {
-			Vector3 pos = transform.position;
-			pos.x = 9;
-			transform.position = pos;
-		}
-		if (transform.position.x < -9) {
-			Vector3 pos = transform.position;
-			pos.x = -9;
-			transform.position = pos;
-		}
-		if (transform.position.z > 9) {
-			Vector3 pos = transform.position;
-			pos.z = 9;
-			transform.position = pos;
-		}
-		if (transform.position.z < -9) {
-			Vector3 pos = transform.position;
-			pos.z = -9;
-			transform.position = pos;
-		}
+//		if (transform.position.x > 9) {
+//			Vector3 pos = transform.position;
+//			pos.x = 9;
+//			transform.position = pos;
+//		}
+//		if (transform.position.x < -9) {
+//			Vector3 pos = transform.position;
+//			pos.x = -9;
+//			transform.position = pos;
+//		}
+//		if (transform.position.z > 9) {
+//			Vector3 pos = transform.position;
+//			pos.z = 9;
+//			transform.position = pos;
+//		}
+//		if (transform.position.z < -9) {
+//			Vector3 pos = transform.position;
+//			pos.z = -9;
+//			transform.position = pos;
+//		}
 		if (SystemInfo.deviceType == DeviceType.Desktop) { 
 			// Player movement in desktop devices
 			// Definition of force vector X and Y components
