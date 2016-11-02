@@ -81,22 +81,24 @@ public class LevelManager : MonoBehaviour
         SetUpFillers();
         SetUpPlayer();
     }
-
+		
     private void SetUpFillers()
     {
         // rows and columns
-        var nrFillerRows = 15.0f;
-        var absoluteMaxX = 9.0f;
-        var absoluteMaxZ = 9.0f;
-        var deltaX = 2.0f*absoluteMaxX/(nrFillerRows - 1);
-        var deltaZ = 2.0f*absoluteMaxZ/(nrFillerRows - 1);
-        var scale = 0.96f;
-
-        for (int x = 0; x < nrFillerRows; x++)
+		var nrFillerColumns = 38;
+        var nrFillerRows = 22.0f;
+        var absoluteMaxX = 19.0f;
+        var absoluteMaxZ = 11.0f;
+		var deltaX = 2.0f*absoluteMaxX/(nrFillerColumns - 1);
+		var deltaZ = 2.0f*absoluteMaxZ/(nrFillerRows - 1);
+        var scale = 1f;
+		Debug.Log ("deltaX: " + deltaX);
+		Debug.Log ("deltaZ: " + deltaZ);
+		for (int x = 0; x < nrFillerColumns; x++)
         {
             for (int y = 0; y < nrFillerRows; y++)
             {
-                var position = new Vector3(-absoluteMaxX + x*deltaX, 0.25f, -absoluteMaxZ + y*deltaZ);
+                var position = new Vector3(-absoluteMaxX + x*deltaX, 0.5f, -absoluteMaxZ + y*deltaZ);
                 //put a filler if nothing at position
                 if (!Physics.CheckBox(position, new Vector3(0.24f, 0.24f, 0.24f)))
                {
