@@ -8,6 +8,8 @@ public class LevelSelection : MonoBehaviour {
 	private int currentLevel = 0;
 
 	void Awake(){
+		SceneManager.LoadScene (1);
+
 	    levels = new List<Level>
 	    {
 	        new Level
@@ -46,6 +48,7 @@ public class LevelSelection : MonoBehaviour {
 				SceneManager.LoadScene (level.LevelNr);
 			}
 		}
+			
         GUILayout.EndArea();
     }
 }

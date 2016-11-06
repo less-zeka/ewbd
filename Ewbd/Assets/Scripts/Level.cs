@@ -8,6 +8,7 @@ public class Level : MonoBehaviour
     public int LevelNr = 0;
     public List<Vector3> DiamondPositions;
     public List<Vector3> RockPositions;
+	public List<Vector3> WallPositions;
 
     void Awake()
     {
@@ -17,6 +18,7 @@ public class Level : MonoBehaviour
 
     private void LoadLevel()
     {
+		/*
         var url = "http://ewbdwebapi.azurewebsites.net/api/level?levelNr=" + LevelNr;
         var req = WebRequest.Create(url)
             as HttpWebRequest;
@@ -27,8 +29,11 @@ public class Level : MonoBehaviour
             result = reader.ReadToEnd();
         }
         var level = JsonUtility.FromJson<LevelData>(result);
-        this.DiamondPositions = level.DiamondPositions;
+        */
+		var level = LevelCreator.GetLevel1 ();
+		this.DiamondPositions = level.DiamondPositions;
         this.RockPositions = level.RockPositions;
+		this.WallPositions = level.WallPositions;
     }
 }
 
@@ -38,4 +43,6 @@ public class LevelData
     public int LevelNr;
     public List<Vector3> DiamondPositions;
     public List<Vector3> RockPositions;
+	//public List<Vector3> WallPositions;
+
 }

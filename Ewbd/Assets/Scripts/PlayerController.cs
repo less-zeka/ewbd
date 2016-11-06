@@ -49,27 +49,6 @@ public class PlayerController : MonoBehaviour
 
 	void FixedUpdate ()
 	{
-		//TODO!
-//		if (transform.position.x > 9) {
-//			Vector3 pos = transform.position;
-//			pos.x = 9;
-//			transform.position = pos;
-//		}
-//		if (transform.position.x < -9) {
-//			Vector3 pos = transform.position;
-//			pos.x = -9;
-//			transform.position = pos;
-//		}
-//		if (transform.position.z > 9) {
-//			Vector3 pos = transform.position;
-//			pos.z = 9;
-//			transform.position = pos;
-//		}
-//		if (transform.position.z < -9) {
-//			Vector3 pos = transform.position;
-//			pos.z = -9;
-//			transform.position = pos;
-//		}
 		if (SystemInfo.deviceType == DeviceType.Desktop) { 
 			// Player movement in desktop devices
 			// Definition of force vector X and Y components
@@ -79,6 +58,8 @@ public class PlayerController : MonoBehaviour
 			Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
 			// Adding force to rigidbody
 			GetComponent<Rigidbody> ().AddForce (movement * speed * Time.deltaTime);
+			//GetComponent<Rigidbody> ().velocity = movement;
+
             //Physics.gravity = movement;
         } else {
 			// Player movement in mobile devices
@@ -86,13 +67,9 @@ public class PlayerController : MonoBehaviour
 			Vector3 movement = new Vector3 (Input.acceleration.x, 0.0f, Input.acceleration.y);
 			// Adding force to rigidbody
 			GetComponent<Rigidbody> ().AddForce (movement * speed * Time.deltaTime);
-		}
-	}
+			//GetComponent<Rigidbody> ().velocity = movement;
 
-	//TODO check if needed
-	void onCollisionEnter (Collider other)
-	{
-		OnTriggerEnter (other);
+		}
 	}
 
 	void OnTriggerEnter (Collider other)
@@ -106,6 +83,28 @@ public class PlayerController : MonoBehaviour
 		} else if (other.gameObject.CompareTag ("Rock"))
 		{
 		    HitRock(other);
+		}
+		else if (other.gameObject.CompareTag ("Wall"))
+		{
+			HitWall(other);
+		}
+	}
+
+	private void HitWall(Collider other){
+		var velocity = GetComponent<Rigidbody> ().velocity;
+		if(other.name == "NorthWall" || other.name == "SouthWall"){
+			GetComponent<Rigidbody> ().velocity = new Vector3 (velocity.x, velocity.y, -velocity.z);
+		}
+		else if(other.name == "WestWall" || other.name == "EasthWall"){
+			GetComponent<Rigidbody> ().velocity = new Vector3 (-velocity.x, velocity.y, velocity.z);
+		}
+		else{
+			var normal = other.transform.position - this.transform.position;
+			if (normal.x*normal.x > normal.z*normal.z) {
+				GetComponent<Rigidbody> ().velocity = new Vector3 (-velocity.x, velocity.y, velocity.z);
+			} else {
+				GetComponent<Rigidbody> ().velocity = new Vector3 (velocity.x, velocity.y, -velocity.z);
+			}
 		}
 	}
 

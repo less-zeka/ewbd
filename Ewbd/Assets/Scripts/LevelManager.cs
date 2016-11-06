@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
     public GameObject Filler;
     public GameObject Diamond;
     public GameObject Rock;
+	public GameObject Wall;
     public bool LevelFailed;
 
     private int _nrOfDiamondsFound;
@@ -64,7 +65,7 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator RoundEnding()
     {
-        var delay = 5.0f;
+        var delay = 3.0f;
         yield return new WaitForSeconds(delay);
     }
 
@@ -78,6 +79,7 @@ public class LevelManager : MonoBehaviour
         //order is important! Fillers will be only created if nothing is there
         SetUpDiamonds();
         SetUpRocks();
+		SetUpWalls ();
         SetUpFillers();
         SetUpPlayer();
     }
@@ -123,7 +125,7 @@ public class LevelManager : MonoBehaviour
 
     private void SetUpPlayer()
     {
-        var myGameObject = Instantiate(Player, new Vector3(-3.96f, 0.5f, 0f), Quaternion.identity);
+        var myGameObject = Instantiate(Player, new Vector3(-18.5f, 0.5f, 9.5f), Quaternion.identity);
         myGameObject.transform.parent = GameObject.Find("Player").transform;
     }
 
@@ -135,6 +137,15 @@ public class LevelManager : MonoBehaviour
             myGameObject.transform.parent = GameObject.Find("Rocks").transform;
         }
     }
+
+	private void SetUpWalls(){
+		foreach (var position in _level.WallPositions)
+		{
+			var myGameObject = Instantiate(Wall, position, Quaternion.identity);
+			myGameObject.tag = "Wall";
+			myGameObject.transform.parent = GameObject.Find("Walls").transform;
+		}
+	}
 
     public void DiamondFound()
     {
