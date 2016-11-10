@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using System;
 
 public class LevelManager : MonoBehaviour
 {
@@ -11,8 +13,10 @@ public class LevelManager : MonoBehaviour
 	public GameObject Wall;
     public bool LevelFailed;
 
-    private int _nrOfDiamondsFound;
+    public int NrOfDiamondsFound;
     private Level _level;
+	public DateTime StartTime;
+	private Enums.LevelState _levelState;
 
     // Use this for initialization
     void Start()
@@ -49,6 +53,7 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator RoundStarting()
     {
+		_levelState = Enums.LevelState.Preparing;
         SetUpLevel();
         var delay = 1.0f;
         yield return new WaitForSeconds(delay);
@@ -56,6 +61,8 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator RoundPlaying()
     {
+		_levelState = Enums.LevelState.Playing;
+		StartTime = DateTime.Now;
         while (GameIsRunning())
         {
             // ... return on the next frame.
@@ -65,11 +72,12 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator RoundEnding()
     {
+		_levelState = Enums.LevelState.Ended;
         var delay = 3.0f;
         yield return new WaitForSeconds(delay);
     }
 
-    private bool GameIsRunning()
+    public bool GameIsRunning()
     {
         return !LevelDone && !LevelFailed;
     }
@@ -105,6 +113,13 @@ public class LevelManager : MonoBehaviour
                 if (!Physics.CheckBox(position, new Vector3(0.24f, 0.24f, 0.24f)))
                {
                     var myGameObject = Instantiate(Filler, position, Quaternion.identity);
+					myGameObject.layer = Constants.Layer_NonCollision;
+					var myGameObjectCollider = new GameObject ();
+					myGameObjectCollider.AddComponent<BoxCollider> ();
+					myGameObjectCollider.layer = Constants.Layer_Collision;
+					myGameObjectCollider.transform.position = myGameObject.transform.position;
+
+					myGameObjectCollider.transform.parent = myGameObject.transform;
                     myGameObject.transform.parent = GameObject.Find("Fillers").transform;
                     myGameObject.transform.localScale = new Vector3(scale, transform.localScale.y, scale);
                 }
@@ -141,15 +156,26 @@ public class LevelManager : MonoBehaviour
 	private void SetUpWalls(){
 		foreach (var position in _level.WallPositions)
 		{
-			var myGameObject = Instantiate(Wall, position, Quaternion.identity);
+			var pos = new Vector3 (position.x, position.y, position.z+0.5f);
+			var myGameObject = Instantiate(Wall, pos, Quaternion.identity);
 			myGameObject.tag = "Wall";
 			myGameObject.transform.parent = GameObject.Find("Walls").transform;
 		}
 	}
 
+	public void UpdateUI(){
+		if(_levelState != Enums.LevelState.Playing){
+			return;
+		}
+		var text = GetComponent<Canvas> ().GetComponent<Text> ();
+		var t2 = GameObject.Find ("DiamondCount").transform.GetComponentInChildren<Text>();
+		var elapsedTime = DateTime.Now - StartTime;
+		//text[0].text = elapsedTime.ToString ();
+	}
+
     public void DiamondFound()
     {
-        _nrOfDiamondsFound++;
+        NrOfDiamondsFound++;
     }
 
     public void HitRock()
@@ -159,6 +185,6 @@ public class LevelManager : MonoBehaviour
 
     private bool LevelDone
     {
-        get { return _nrOfDiamondsFound >= _level.DiamondPositions.Count; }
+        get { return NrOfDiamondsFound >= _level.DiamondPositions.Count; }
     }
 }

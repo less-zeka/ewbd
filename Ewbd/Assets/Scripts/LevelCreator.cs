@@ -33,32 +33,32 @@ W... ..r. ..r.rr.........r.rd...... ..rW
 W.d.... ..... ......... .r..r....r...r.W
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
 
-		//easy
-		mapData = @"
-WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-W.........d.r......r.r............r....W
-W.rXr...... .........rd..r.... ..... ..W
-W.......... ..r...................r....W
-Wr.rr............................r.....W
-Wr. r.............................r.rr.W
-W... ..r........r.....r. r..........rr.W
-Wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww......r.W
-W. ...r..d. ..r.r..........d.dd...... .W
-W..d........... ........rr r.......r...W
-W......r................r .............W
-W.d..............r.........r.. ......r.W
-W.d.. .... .......rd..d....r...r..d. .W
-W. r..............r r..r........d.....rW
-W........wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwW
-W r.........r...d....r.................W
-W r......... r..r...............r.rr..PW
-W. ................... ....d...r.rr...W
-W....rd...........r......r.rd......r...W
-W... ..r. ..r.rr.........r.rd...... ..rW
-W.d.... ..... ......... .r..r....r...r.W
-WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
+//		//easy
+//		mapData = @"
+//WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+//W.........d.r......r.r............r....W
+//W.rXr...... .........rd..r.... ..... ..W
+//W.......... ..r...................r....W
+//Wr.rr............................r.....W
+//Wr. r.............................r.rr.W
+//W... ..r........r.....r. r..........rr.W
+//Wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww......r.W
+//W. ...r..d. ..r.r..........d.dd...... .W
+//W..d........... ........rr r.......r...W
+//W......r................r .............W
+//W.d..............r.........r.. ......r.W
+//W.d.. .... .......rd..d....r...r..d. .W
+//W. r..............r r..r........d.....rW
+//W........wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwW
+//W r.........r...d....r.................W
+//W r......... r..r...............r.rr..PW
+//W. ................... ....d...r.rr...W
+//W....rd...........r......r.rd......r...W
+//W... ..r. ..r.rr.........r.rd...... ..rW
+//W.d.... ..... ......... .r..r....r...r.W
+//WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
 
-		Level level = new Level () {
+		var level = new Level () {
 			RockPositions = GetRocks (mapData),
 			DiamondPositions = GetDiamonds (mapData),
 			WallPositions = GetWalls (mapData)
@@ -98,5 +98,4 @@ WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
 	{
 		return GetElementPositions (map, "w");	
 	}
-
 }
