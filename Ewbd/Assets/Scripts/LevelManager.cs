@@ -16,7 +16,7 @@ public class LevelManager : MonoBehaviour
     public int NrOfDiamondsFound;
     private Level _level;
 	public DateTime StartTime;
-	private Enums.LevelState _levelState;
+
 
     // Use this for initialization
     void Start()
@@ -53,7 +53,6 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator RoundStarting()
     {
-		_levelState = Enums.LevelState.Preparing;
         SetUpLevel();
         var delay = 1.0f;
         yield return new WaitForSeconds(delay);
@@ -61,7 +60,6 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator RoundPlaying()
     {
-		_levelState = Enums.LevelState.Playing;
 		StartTime = DateTime.Now;
         while (GameIsRunning())
         {
@@ -72,7 +70,6 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator RoundEnding()
     {
-		_levelState = Enums.LevelState.Ended;
         var delay = 3.0f;
         yield return new WaitForSeconds(delay);
     }
@@ -161,16 +158,6 @@ public class LevelManager : MonoBehaviour
 			myGameObject.tag = "Wall";
 			myGameObject.transform.parent = GameObject.Find("Walls").transform;
 		}
-	}
-
-	public void UpdateUI(){
-		if(_levelState != Enums.LevelState.Playing){
-			return;
-		}
-		var text = GetComponent<Canvas> ().GetComponent<Text> ();
-		var t2 = GameObject.Find ("DiamondCount").transform.GetComponentInChildren<Text>();
-		var elapsedTime = DateTime.Now - StartTime;
-		//text[0].text = elapsedTime.ToString ();
 	}
 
     public void DiamondFound()

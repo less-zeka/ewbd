@@ -16,7 +16,11 @@ public class DiamondCount : MonoBehaviour {
 	void Update() {
 		if (levelManager.GameIsRunning ()) {
 			var elapsedTime = DateTime.Now - levelManager.StartTime;
-			timerLabel.text = string.Format ("{0}", elapsedTime.ToString ());
+
+			string elapsedTimeString = String.Format("{0:00}:{1:00}.{2:00}",
+				elapsedTime.Minutes, elapsedTime.Seconds, elapsedTime.Milliseconds / 10);
+			
+			timerLabel.text = elapsedTimeString;
 		} 
 	}
 }

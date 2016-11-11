@@ -40,9 +40,7 @@ public class PlayerController : MonoBehaviour
 			if (Input.GetKeyDown (KeyCode.Escape))
 				Application.Quit ();            
 		}
-
-		levelManager.UpdateUI ();
-		//Debug.Log ("velocity: " + _rigidBody.velocity.magnitude);
+					//Debug.Log ("velocity: " + _rigidBody.velocity.magnitude);
 	}
 
 	void FixedUpdate ()

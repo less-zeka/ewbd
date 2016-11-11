@@ -16,25 +16,32 @@ public class Level : MonoBehaviour
         ((GameManager) GameObject.Find("GameManager").GetComponent("GameManager")).CurrentLevel = this;
     }
 
+	//currently unused. remains as template
+	private void LoadLevelWithApi(){
+		var url = "http://ewbdwebapi.azurewebsites.net/api/level?levelNr=" + LevelNr;
+		var req = WebRequest.Create(url)
+			as HttpWebRequest;
+		string result;
+		using (var resp = req.GetResponse() as HttpWebResponse)
+		{
+			var reader = new StreamReader(resp.GetResponseStream());
+			result = reader.ReadToEnd();
+		}
+		var level = JsonUtility.FromJson<LevelData>(result);
+
+		this.DiamondPositions = level.DiamondPositions;
+		this.RockPositions = level.RockPositions;
+		//TODO 
+		//this.WallPositions = level.WallPositions;	
+	}
+
     private void LoadLevel()
     {
-		/*
-        var url = "http://ewbdwebapi.azurewebsites.net/api/level?levelNr=" + LevelNr;
-        var req = WebRequest.Create(url)
-            as HttpWebRequest;
-        string result;
-        using (var resp = req.GetResponse() as HttpWebResponse)
-        {
-            var reader = new StreamReader(resp.GetResponseStream());
-            result = reader.ReadToEnd();
-        }
-        var level = JsonUtility.FromJson<LevelData>(result);
-        */
 		var level = LevelCreator.GetLevel1 ();
 		this.DiamondPositions = level.DiamondPositions;
-        this.RockPositions = level.RockPositions;
-		this.WallPositions = level.WallPositions;
-    }
+		this.RockPositions = level.RockPositions;
+		this.WallPositions = level.WallPositions;    
+	}
 }
 
 //just used for deserialization
