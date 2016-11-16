@@ -66,10 +66,11 @@ public class PlayerController : MonoBehaviour
 			Destroy (collision.gameObject);
 		} else if (collision.gameObject.CompareTag ("Diamond")) {
 			Destroy (collision.gameObject);
-            levelManager.DiamondFound ();
-		} else if (collision.gameObject.CompareTag ("Rock"))
-		{
-		    CollisionWithRock(collision);
+			levelManager.DiamondFound ();
+		} else if (collision.gameObject.CompareTag ("Rock")) {
+			CollisionWithRock (collision);
+		} else if (collision.gameObject.CompareTag ("Exit")) {
+			levelManager.LevelDone = true;
 		}
 	}
 		

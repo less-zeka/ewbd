@@ -22,11 +22,11 @@ W.d.. ..r. .....r.rd..d....r...r..d. .W
 W. r..............r r..r........d.....rW
 W........wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwW
 W r.........r...d....r.....r...r.......W
-W r......... r..r........r......r.rr..PW
-W. ..r........r.....r. ....d...r.rr...W
+W.r......... r..r........r......r.rr..PW
+W....r........r.....r.......d...r.rr...W
 W....rd..r........r......r.rd......r...W
-W... ..r. ..r.rr.........r.rd...... ..rW
-W.d.... ..... ......... .r..r....r...r.W
+W......r. ..r.rr.........r.rd...... ..rW
+W.d......................r..r....r...r.W
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
 
 	#endregion

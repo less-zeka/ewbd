@@ -12,7 +12,9 @@ public static class LevelCreator
 		var level = new Level () {
 			RockPositions = GetRocks (MapData.Map1),
 			DiamondPositions = GetDiamonds (MapData.Map1),
-			WallPositions = GetWalls (MapData.Map1)
+			WallPositions = GetWalls (MapData.Map1),
+			ExitPosition = GetExit(MapData.Map1),
+			NrOfSecondsForSucceed = 150
 		};
 				
 		return level;
@@ -48,5 +50,10 @@ public static class LevelCreator
 	public static List<Vector3> GetWalls (string map)
 	{
 		return GetElementPositions (map, "w");	
+	}
+
+	public static Vector3 GetExit (string map)
+	{
+		return GetElementPositions (map, "P")[0];	
 	}
 }

@@ -11,7 +11,9 @@ public class LevelManager : MonoBehaviour
     public GameObject Diamond;
     public GameObject Rock;
 	public GameObject Wall;
+	public GameObject Exit;
     public bool LevelFailed;
+	public bool LevelDone;
 
     public int NrOfDiamondsFound;
     private Level _level;
@@ -71,6 +73,12 @@ public class LevelManager : MonoBehaviour
     private IEnumerator RoundEnding()
     {
         var delay = 3.0f;
+		if (LevelDone) {
+			Debug.Log ("yeahh you did it!");
+		}
+		else {
+			Debug.Log ("NOOOO you failed!");
+		}
         yield return new WaitForSeconds(delay);
     }
 
@@ -85,6 +93,7 @@ public class LevelManager : MonoBehaviour
         SetUpDiamonds();
         SetUpRocks();
 		SetUpWalls ();
+		SetUpExit ();
         SetUpFillers();
         SetUpPlayer();
     }
@@ -160,6 +169,12 @@ public class LevelManager : MonoBehaviour
 		}
 	}
 
+	private void SetUpExit()
+	{
+		var myGameObject = Instantiate(Exit, _level.ExitPosition, Quaternion.identity);
+		myGameObject.transform.parent = GameObject.Find("Exit").transform;
+	}
+
     public void DiamondFound()
     {
         NrOfDiamondsFound++;
@@ -170,8 +185,9 @@ public class LevelManager : MonoBehaviour
         LevelFailed = true;
     }
 
-    private bool LevelDone
-    {
-        get { return NrOfDiamondsFound >= _level.DiamondPositions.Count; }
-    }
+	public int NrOfSecondsForSucceed {
+		get{
+			return _level.NrOfSecondsForSucceed;
+		}
+	}
 }

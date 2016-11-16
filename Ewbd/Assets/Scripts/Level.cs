@@ -9,6 +9,8 @@ public class Level : MonoBehaviour
     public List<Vector3> DiamondPositions;
     public List<Vector3> RockPositions;
 	public List<Vector3> WallPositions;
+	public Vector3 ExitPosition;
+	public int NrOfSecondsForSucceed;
 
     void Awake()
     {
@@ -40,7 +42,9 @@ public class Level : MonoBehaviour
 		var level = LevelCreator.GetLevel1 ();
 		this.DiamondPositions = level.DiamondPositions;
 		this.RockPositions = level.RockPositions;
-		this.WallPositions = level.WallPositions;    
+		this.WallPositions = level.WallPositions;
+		this.ExitPosition = level.ExitPosition;
+		this.NrOfSecondsForSucceed = level.NrOfSecondsForSucceed;
 	}
 }
 
