@@ -80,16 +80,7 @@ public class LevelManager : MonoBehaviour
         // Once execution has returned here, run the 'RoundEnding' coroutine, again don't return until it's finished.
         yield return StartCoroutine(RoundEnding());
 
-        if (LevelDone)
-        {
-            //SceneManager.LoadScene(Constants.Scene_LevelSelection);
-        }
-
-        else if (LevelFailed)
-        {
-            //SceneManager.LoadScene(Constants.Scene_RestartLevel);
-        }
-        else
+		if (!LevelDone && ! LevelFailed)
         {
             StartCoroutine(GameLoop());
         }

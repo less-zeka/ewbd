@@ -2,7 +2,6 @@
 
 public class GameManager : MonoBehaviour
 {
-	public Level CurrentLevel;
 	public int NrOfLivesLeft;
 	public int CurrentLevelNr;
 
