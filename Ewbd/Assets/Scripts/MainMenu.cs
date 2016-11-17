@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour {
         var myButtonStyle = new GUIStyle(GUI.skin.button) {fontSize = 50};
         if (GUILayout.Button("Play", myButtonStyle))
         {
-            SceneManager.LoadScene(1);
+			SceneManager.LoadScene(Constants.Scene_Level);
         }
 
         GUILayout.EndArea();

@@ -6,6 +6,15 @@ using System.Text.RegularExpressions;
 
 public static class LevelCreator
 {
+	public static List<Level> GetLevels(){
+		var result = new List<Level> ();
+		result.Add (GetLevel1());
+		result.Add (GetLevel2());
+		result.Add (GetLevel3());
+		result.Add (GetLevel4());
+
+		return result;
+	}
 
 	public static Level GetLevel1 ()
 	{
@@ -14,12 +23,55 @@ public static class LevelCreator
 			DiamondPositions = GetDiamonds (MapData.Map1),
 			WallPositions = GetWalls (MapData.Map1),
 			ExitPosition = GetExit(MapData.Map1),
-			NrOfSecondsForSucceed = 150
+			NrOfSecondsForSucceed = 150,
+			LevelNr = 1
 		};
 				
 		return level;
 	}
 		
+	public static Level GetLevel2 ()
+	{
+		var level = new Level () {
+			RockPositions = GetRocks (MapData.Map2),
+			DiamondPositions = GetDiamonds (MapData.Map2),
+			WallPositions = GetWalls (MapData.Map2),
+			ExitPosition = GetExit(MapData.Map2),
+			NrOfSecondsForSucceed = 150,
+			LevelNr = 2
+		};
+
+		return level;
+	}
+
+	public static Level GetLevel3 ()
+	{
+		var level = new Level () {
+			RockPositions = GetRocks (MapData.Map3),
+			DiamondPositions = GetDiamonds (MapData.Map3),
+			WallPositions = GetWalls (MapData.Map3),
+			ExitPosition = GetExit(MapData.Map3),
+			NrOfSecondsForSucceed = 150,
+			LevelNr = 2
+		};
+
+		return level;
+	}
+
+	public static Level GetLevel4 ()
+	{
+		var level = new Level () {
+			RockPositions = GetRocks (MapData.Map4),
+			DiamondPositions = GetDiamonds (MapData.Map4),
+			WallPositions = GetWalls (MapData.Map4),
+			ExitPosition = GetExit(MapData.Map4),
+			NrOfSecondsForSucceed = 150,
+			LevelNr = 2
+		};
+
+		return level;
+	}
+
 	public static List<Vector3> GetElementPositions (string map, string pattern)
 	{
 		var elements = new List<Vector3> ();

@@ -3,9 +3,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
+using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour
 {
+	private GameObject MyPlayer;
     public GameObject Player;
     public GameObject Filler;
     public GameObject Diamond;
@@ -16,16 +18,56 @@ public class LevelManager : MonoBehaviour
 	public bool LevelDone;
 
     public int NrOfDiamondsFound;
-    private Level _level;
+    private List<Level> _levels;
+	private GameManager _gameManager;
 	public DateTime StartTime;
 
+	private bool showCountdown;
+	private string countdown = "";    
 
     // Use this for initialization
     void Start()
     {
-        _level = ((GameManager)GameObject.Find("GameManager").GetComponent("GameManager")).CurrentLevel;
+		_gameManager = ((GameManager)GameObject.Find("GameManager").GetComponent("GameManager"));
+		_levels = LevelCreator.GetLevels();
         StartCoroutine(GameLoop());
     }
+
+	void OnGUI ()
+	{
+		if (showCountdown) {    
+			// display countdown    
+			GUI.color = Color.white;    
+			GUI.Box (new Rect (Screen.width / 2, 75, 180, 140), countdown);
+		} else if (LevelFailed) {
+			if (_gameManager.NrOfLivesLeft > 0) {
+				GUILayout.BeginArea (new Rect ((Screen.width / 2) - 100, (Screen.height / 2) - 100, 150, 100));
+
+				var myButtonStyle = new GUIStyle (GUI.skin.button) { fontSize = 50 };
+				if (GUILayout.Button ("Retry", myButtonStyle)) {
+					//TOOD levelnr
+					_gameManager.NrOfLivesLeft--;
+					SceneManager.LoadScene (1);
+				}
+
+				GUILayout.EndArea ();
+			} else {
+				GUI.color = Color.white;    
+				GUI.Box (new Rect (Screen.width / 2, 75, 180, 140), "you're dead :-(");
+				GUILayout.BeginArea (new Rect ((Screen.width / 2) - 100, (Screen.height / 2) - 300, 150, 100));
+				var myButtonStyle = new GUIStyle (GUI.skin.button) { fontSize = 40 };
+				if (GUILayout.Button ("Restart", myButtonStyle)) {
+					_gameManager.Initialize ();
+					SceneManager.LoadScene (Constants.Scene_Level);
+				}
+				GUILayout.EndArea ();
+			}
+		} else if (LevelDone) {
+			_gameManager.CurrentLevelNr++;
+			LevelDone = false;
+			SceneManager.LoadScene (Constants.Scene_Level);
+		}
+	}
 
     private IEnumerator GameLoop()
     {
@@ -40,12 +82,12 @@ public class LevelManager : MonoBehaviour
 
         if (LevelDone)
         {
-            SceneManager.LoadScene(Constants.Scene_LevelSelection);
+            //SceneManager.LoadScene(Constants.Scene_LevelSelection);
         }
 
         else if (LevelFailed)
         {
-            SceneManager.LoadScene(Constants.Scene_RestartLevel);
+            //SceneManager.LoadScene(Constants.Scene_RestartLevel);
         }
         else
         {
@@ -55,9 +97,22 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator RoundStarting()
     {
+		showCountdown = true;    
         SetUpLevel();
-        var delay = 1.0f;
+
+        var delay = 1f;
+		countdown = "3";
+		yield return null;
+		MyPlayer.GetComponent<PlayerController> ().enabled = false;
+		yield return new WaitForSeconds (delay);
+
+		countdown = "2";
         yield return new WaitForSeconds(delay);
+		countdown = "1";
+		yield return new WaitForSeconds(delay);
+		showCountdown = false;
+		MyPlayer.GetComponent<PlayerController> ().enabled = true;
+
     }
 
     private IEnumerator RoundPlaying()
@@ -136,7 +191,7 @@ public class LevelManager : MonoBehaviour
 
     private void SetUpDiamonds()
     {
-        foreach (var position in _level.DiamondPositions)
+		foreach (var position in _levels[_gameManager.CurrentLevelNr-1].DiamondPositions)
         {
             var rotation = Quaternion.Euler(new Vector3(45, 45f, 45f));
             var myGameObject = Instantiate(Diamond, position, rotation);
@@ -146,13 +201,13 @@ public class LevelManager : MonoBehaviour
 
     private void SetUpPlayer()
     {
-        var myGameObject = Instantiate(Player, new Vector3(-18.5f, 0.5f, 9.5f), Quaternion.identity);
-        myGameObject.transform.parent = GameObject.Find("Player").transform;
+        MyPlayer = Instantiate(Player, new Vector3(-18.0f, 0.5f, 9.5f), Quaternion.identity);
+		MyPlayer.transform.parent = GameObject.Find("Player").transform;
     }
 
     private void SetUpRocks()
     {
-        foreach (var position in _level.RockPositions)
+		foreach (var position in _levels[_gameManager.CurrentLevelNr-1].RockPositions)
         {
             var myGameObject = Instantiate(Rock, position, Quaternion.identity);
             myGameObject.transform.parent = GameObject.Find("Rocks").transform;
@@ -160,7 +215,7 @@ public class LevelManager : MonoBehaviour
     }
 
 	private void SetUpWalls(){
-		foreach (var position in _level.WallPositions)
+		foreach (var position in _levels[_gameManager.CurrentLevelNr-1].WallPositions)
 		{
 			var pos = new Vector3 (position.x, position.y, position.z+0.5f);
 			var myGameObject = Instantiate(Wall, pos, Quaternion.identity);
@@ -171,7 +226,7 @@ public class LevelManager : MonoBehaviour
 
 	private void SetUpExit()
 	{
-		var myGameObject = Instantiate(Exit, _level.ExitPosition, Quaternion.identity);
+		var myGameObject = Instantiate(Exit, _levels[_gameManager.CurrentLevelNr-1].ExitPosition, Quaternion.identity);
 		myGameObject.transform.parent = GameObject.Find("Exit").transform;
 	}
 
@@ -187,7 +242,7 @@ public class LevelManager : MonoBehaviour
 
 	public int NrOfSecondsForSucceed {
 		get{
-			return _level.NrOfSecondsForSucceed;
+			return _levels[_gameManager.CurrentLevelNr-1].NrOfSecondsForSucceed;
 		}
 	}
 }

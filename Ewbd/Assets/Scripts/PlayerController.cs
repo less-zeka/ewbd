@@ -60,8 +60,6 @@ public class PlayerController : MonoBehaviour
 
 	void OnCollisionEnter (Collision collision)
 	{				
-		Debug.Log ("velONCollisionEnter: " + _rigidBody.velocity);
-		_rigidBody.AddForce (_rigidBody.velocity);
 		if (collision.gameObject.CompareTag ("Filler")) {
 			Destroy (collision.gameObject);
 		} else if (collision.gameObject.CompareTag ("Diamond")) {
@@ -72,6 +70,12 @@ public class PlayerController : MonoBehaviour
 		} else if (collision.gameObject.CompareTag ("Exit")) {
 			levelManager.LevelDone = true;
 		}
+
+		if (_rigidBody == null)
+			return;
+//		Debug.Log ("velONCollisionEnter: " + _rigidBody.velocity);
+		_rigidBody.AddForce (_rigidBody.velocity);
+
 	}
 		
 	private void CollisionWithRock(Collision collision)

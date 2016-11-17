@@ -19,7 +19,9 @@ public class Timer : MonoBehaviour {
 
 			var timeLeft = levelManager.NrOfSecondsForSucceed - (int)elapsedTime.TotalSeconds;
 
-			timerLabel.text = timeLeft.ToString ();
-		} 
+			timerLabel.text = "Time: "+timeLeft.ToString ();
+		} else {
+			timerLabel.text = string.Empty;
+		}
 	}
 }

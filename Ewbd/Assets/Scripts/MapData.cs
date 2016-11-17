@@ -7,6 +7,93 @@ public static class MapData  {
 	#region Map1
 	public static string Map1 = @"
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+W.........d.d...P..r.r............r....W
+W.rXdddddddd.........rd..r.... ..... ..W
+W..........d..r.....r.r..r........r....W
+Wr.rr....dd...r......r..r....r...r.....W
+Wr. r......... r..r........r......r.rr.W
+W... ..r........r.....r. r........r.rr.W
+Wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww...r..r.W
+W. ...r..d. ..r.r..........d.rd...... .W
+W..d.....r..... ........rr r..r....r...W
+W...r..r.r..............r .r..r........W
+W.r.....r........rrr.......r.. .d....r.W
+W.d.. ..r.dd.....r.rd..d....r...r..d. .W
+W. r..............r r..r........d.....rW
+W........wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwW
+W r.........r...d....r.....r...r.......W
+W.r......... r..r........r......r.rr...W
+W....r........r.....r.......d...r.rr...W
+W....rd..r........r......r.rd......r...W
+W......r. ..r.rr.........r.rd...... ..rW
+W.d......................r..r....r...r.W
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
+
+
+
+	#endregion
+
+	#region Map2
+	public static string Map2 = @"
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+W.........d.d...d..r.r............r....W
+W.rXdddddddd.........rd..r.... ..... ..W
+W..........d..r.....r.r..r........r....W
+Wr.rr....dd...r......r..r....r...r.....W
+Wr. r......... r..r........r......r.rr.W
+W... ..r........r.....r. r........r.rr.W
+Wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww...r..r.W
+W. ...r..d. ..r.r..........d.Pd...... .W
+W..d.....r..... ........rr r..r....r...W
+W...r..r.r..............r .r..r........W
+W.r.....r........rrr.......r.. .d....r.W
+W.d.. ..r.dd.....r.rd..d....r...r..d. .W
+W. r..............r r..r........d.....rW
+W........wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwW
+W r.........r...d....r.....r...r.......W
+W.r......... r..r........r......r.rr...W
+W....r........r.....r.......d...r.rr...W
+W....rd..r........r......r.rd......r...W
+W......r. ..r.rr.........r.rd...... ..rW
+W.d......................r..r....r...r.W
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
+
+
+
+	#endregion
+
+	#region Map3
+	public static string Map3 = @"
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+W.........d.d...r..r.r............r....W
+W.rXdddddddd.........rd..r.... ..... ..W
+W..........d..r.....r.r..r........r....W
+Wr.rr....dd...r......r..r....r...r.....W
+Wr. r......... r..r........r......r.rr.W
+W... ..r........r.....r. r........r.rr.W
+Wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww...r..r.W
+W. ...r..d. ..r.r..........d.rd...... .W
+W..d.....r..... ........rr r..r....r...W
+W...r..r.r..............r .r..r........W
+W.r.....r........rrr.......r.. .d....r.W
+W.d.. ..P.dd.....r.rd..d....r...r..d. .W
+W. r..............r r..r........d.....rW
+W........wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwW
+W r.........r...d....r.....r...r.......W
+W.r......... r..r........r......r.rr...W
+W....r........r.....r.......d...r.rr...W
+W....rd..r........r......r.rd......r...W
+W......r. ..r.rr.........r.rd...... ..rW
+W.d......................r..r....r...r.W
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
+
+
+
+	#endregion
+
+	#region Map4
+	public static string Map4 = @"
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 W.........d.r......r.r............r....W
 W.rXr...... .........rd..r.... ..... ..W
 W.......... ..r.....r.r..r........r....W
@@ -29,5 +116,8 @@ W......r. ..r.rr.........r.rd...... ..rW
 W.d......................r..r....r...r.W
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
 
+
+
 	#endregion
+
 }
